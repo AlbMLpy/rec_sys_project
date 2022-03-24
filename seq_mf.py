@@ -40,9 +40,6 @@ def update_global_factor(
     local_factors, global_factors, factor_name,
     gradient_funcs, regularization, gain
 ):
-    """
-        To fill in!
-    """
     target_factor_id = global_factors_names.index(factor_name)
     updater_args = (  # will go into `fetch_items_grad` or `fetch_context_grad`
         confidence, transitions, local_factors, global_factors
@@ -73,11 +70,9 @@ def gradient_updater(gradient_func, confidence, transitions, local_factors, glob
 
 
 def _compute_user_preference(Su, P, eta, Q, Qb, u):
-    """
-        To fill in!
-    """
     SuQb = (Su @ Qb)
-    seq_part = np.einsum('ij,ij->i', SuQb, Q, optimize=False)
+    #seq_part = np.einsum('ij,ij->i', SuQb, Q, optimize=False)
+    seq_part = (SuQb * Q).sum(axis=1)
     if eta is not None:
         seq_part *= eta[u]
     r_u = np.dot(Q, P[u]) + seq_part
@@ -85,9 +80,6 @@ def _compute_user_preference(Su, P, eta, Q, Qb, u):
 
 
 def _update_weighted_error(Cui, r, u):
-    """
-        To fill in!
-    """
     indptr = Cui.indptr
     inds = Cui.indices[indptr[u]:indptr[u + 1]]
     coef = Cui.data[indptr[u]:indptr[u + 1]]
@@ -95,9 +87,6 @@ def _update_weighted_error(Cui, r, u):
 
 
 def fetch_items_grad(Cui, Su, P, eta, Q, Qb, u):
-    """
-        To fill in!
-    """
     r_u, SuQb = _compute_user_preference(Su, P, eta, Q, Qb, u)
     _update_weighted_error(Cui, r_u, u)
     longterm_grad = np.outer(r_u, P[u])
@@ -108,9 +97,6 @@ def fetch_items_grad(Cui, Su, P, eta, Q, Qb, u):
 
 
 def fetch_context_grad(Cui, Su, P, eta, Q, Qb, u):
-    """
-        To fill in!
-    """
     r_u, _ = _compute_user_preference(Su, P, eta, Q, Qb, u)
     _update_weighted_error(Cui, r_u, u)
     sessions_grad = Su.T @ (r_u[:, np.newaxis] * Q)
@@ -125,9 +111,6 @@ def update_local_models(
     local_factors, global_factors,
     least_squares_funcs, regularization
 ):
-    """
-        To fill in!
-    """
     for factor_name in local_factors_names:
         if local_factors[local_factors_names.index(factor_name)] is None:
             continue
@@ -191,9 +174,6 @@ def least_squares_contextual(Cui, Su, P, Q, Qb, QtQ, u, reg):
 
 
 def user_linear_equation(Cui, Su, eta, Q, Qb, QtQ, u):
-    """
-        To fill in!
-    """
     indptr = Cui.indptr
     inds = Cui.indices[indptr[u]:indptr[u + 1]]
     coef = Cui.data[indptr[u]:indptr[u + 1]] 
