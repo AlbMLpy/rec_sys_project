@@ -10,4 +10,4 @@
 
 3. Run seq_mf.ipynb -> to get the results for SeqMF model
 
-4. Run seq_mf_privacy.ipynb -> to get the results for SeqMF model with privacy
+4. Run seq_mf_ldp.ipynb -> to get the results for SeqMF model with privacy
