@@ -1,4 +1,4 @@
-![Image of clusters](https://github.com/AlbMLpy/rec_sys_project/misc/privacy.png)
+![Image of clusters](https://github.com/AlbMLpy/rec_sys_project/blob/master/misc/privacy.png)
 
 # This is a project on Introduction into Recommender Systems course.
 
