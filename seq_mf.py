@@ -139,7 +139,8 @@ def update_local_models(
 
 def least_squares_updater(least_squares_func, confidence, transitions, other, global_factors, regularization):
     Q, Qb = global_factors
-    QtQ = np.zeros(shape=(Q.shape[1], Q.shape[1]))#QtQ = Q.T @ Q #TO FIX!!!!
+    QtQ = np.zeros(shape=(Q.shape[1], Q.shape[1])) #TO FIX!!!!
+    #QtQ = Q.T @ Q
     QtQ[np.diag_indices_from(QtQ)] += regularization #TO FIX!!!!
     empty_Su = csr_matrix((Q.shape[0], Qb.shape[0]))
     def updater(user):
